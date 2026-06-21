@@ -1,30 +1,30 @@
-# 🔍 CAMSCAN
+# Netscan
 
-Modular local network scanner to detect devices with UPnP enabled, IP cameras, and common open ports. Developed in Bash with support for automatic logging.
+Script en Bash para escanear redes locales de forma rápida. Identifica dispositivos con UPnP activo y puertos comunes de cámaras de seguridad (CCTV).
 
----
+## Requisitos
+* `nmap`
+* `ip` (iproute2)
+* `miniupnpc` (opcional, para ver mapeos UPnP con el comando `upnpc`)
 
-## ⚙️ Features
+El script necesita permisos de root (`sudo`) para poder realizar los escaneos SYN y UDP (`nmap -sS` / `-sU`).
 
-- UPnP scanning (UDP port 1900)
-- Detection of IP cameras and suspicious services (`23`, `80`, `554`, `8080`, `5000`, `37777`)
-- Display of active UPnP mappings (`upnpc`)
-- Automatic date-based logging
-- No parameters = automatic detection of local subnet (`x.x.x.0/24`)
+## Uso
 
----
-
-## 🛠️ Requirements
-
-- `nmap`
-- (optional) `upnpc` → install with `sudo pacman -S miniupnpc` -- `sudo apt update && sudo apt install miniupnpc`
-
----
-
-## ▶️ Usage
-
+Dale permisos de ejecución si aún no los tiene:
 ```bash
-cd CAMSCAN && cd camscan
-chmod +x camscan.sh
-./scan_red.sh              # Uses local network by default
-./scan_red.sh 192.168.1.0/24  # Or specify a subnet/IP
+chmod +x camscan/netscan.sh
+```
+
+Ejecuta el script:
+```bash
+# Escaneo automático de la subred local actual
+sudo ./camscan/netscan.sh
+
+# Escanear un host o rango específico
+sudo ./camscan/netscan.sh 192.168.1.100
+sudo ./camscan/netscan.sh 192.168.1.0/24
+```
+
+## Logs
+Los resultados se guardan automáticamente en tu carpeta personal en `~/camscan/logs/` (con propiedad de tu usuario regular, no de root).
